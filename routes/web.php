@@ -21,7 +21,6 @@ Route::get('products', [HomepageController::class, 'products']);
 Route::get('product/{slug}', [HomepageController::class, 'product'])->name('product.show');
 Route::get('categories', [HomepageController::class, 'categories']);
 Route::get('category/{slug}', [HomepageController::class, 'category']);
-Route::get('product', [HomepageController::class, 'product']);
 
 Route::middleware(['auth', 'isUsers'])->group(function() {
     Route::get('/', [HomepageController::class, 'index'])->name('home');

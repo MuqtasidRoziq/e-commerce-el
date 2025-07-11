@@ -114,6 +114,14 @@
         animation-play-state: paused;
     }
 
+    .category-scroll1 {
+        display: flex;
+        animation: scroll-left 40s linear infinite;
+        padding-bottom: 1rem;
+        width: max-content;
+    }
+    
+
     @keyframes scroll-left {
         0% {
             transform: translateX(0);

@@ -53,7 +53,8 @@
                             <input type="text" class="form-control" id="cardCvv" placeholder="CVV">
                         </div>
                     </div>
-                    <button class="btn btn-primary w-100 mt-3" type="submit">Pesan Sekarang</button>
+                    <button class="btn btn-outline-primary w-100 mt-3" type="submit">Pesan Sekarang</button>
+                    <a href="/cart" class="btn btn-outline-primary w-100 mt-2">Kembali ke Keranjang</a>
                 </form>
             </div>
             <!-- Ringkasan Pesanan -->

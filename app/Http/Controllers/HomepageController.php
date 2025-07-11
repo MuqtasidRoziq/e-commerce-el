@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 use App\Models\Categories;
 use App\Models\Product;
+// theme folder
+use App\Traits\ThemeTrait;
+use Binafy\LaravelCart\Models\CartItem;
+use Binafy\LaravelCart\Models\CartItemable;
+use Binafy\LaravelCart\Models\CartItemableType;
 
 use \Binafy\LaravelCart\Models\Cart;
 
@@ -40,8 +45,8 @@ class HomepageController extends Controller
 
         $products = $query->paginate(20);
 
-        return view('web.products', [
-            'title' => $title,
+        return view('web.products',[
+            'title'=>$title,
             'products' => $products,
         ]);
     }
@@ -51,7 +56,7 @@ class HomepageController extends Controller
         $product = Product::whereSlug($slug)->first();
 
         if (!$product) {
-            return abort(404);
+            return abort(404, 'produk tidak ditemukan');
         }
 
         $relatedProducts = Product::where('product_category_id', $product->product_category_id)
@@ -59,7 +64,7 @@ class HomepageController extends Controller
             ->take(4)
             ->get();
 
-        return view('web.products', [
+        return view('web.product-details', [
             'slug' => $slug,
             'product' => $product,
             'relatedProducts' => $relatedProducts,
@@ -95,17 +100,43 @@ class HomepageController extends Controller
 
     public function cart()
     {
-        $cart = Cart::query()
-            ->with(
-                [
-                    'items',
-                    'items.itemable'
-                ]
-            )
-            ->where('user_id', auth()->guard('web')->user()->id)
-            ->first();
+        $dummyProduct1 = (object)[
+        'id' => 1,
+        'name' => 'iPhone 15 Pro',
+        'price' => 19999000,
+        'image_url' => 'https://www.apple.com/v/iphone/home/cb/images/overview/select/iphone_16pro__erw9alves2qa_xlarge_2x.png',
+    ];
 
+    $dummyProduct2 = (object)[
+        'id' => 2,
+        'name' => 'Samsung Galaxy S23 Ultra',
+        'price' => 17999000,
+        'image_url' => 'https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-s23-ultra-1.jpg',
+    ];
 
+    // Dummy items
+    $dummyCartItems = collect([
+        (object)[
+            'id' => 101,
+            'quantity' => 1,
+            'itemable' => $dummyProduct1,
+        ],
+        (object)[
+            'id' => 102,
+            'quantity' => 2,
+            'itemable' => $dummyProduct2,
+        ],
+    ]);
+
+    $total = $dummyCartItems->sum(function ($item) {
+        return $item->itemable->price * $item->quantity;
+    });
+
+    // Simulasikan object cart
+    $cart = (object)[
+        'items' => $dummyCartItems,
+        'total' => $total,
+    ];
         return view('web.cart', [
             'title' => 'Cart',
             'cart' => $cart,

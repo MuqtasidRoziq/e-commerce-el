@@ -14,10 +14,11 @@
                     <li class="nav-item">
                         <a class="nav-link active text-white" aria-current="page" href="/">Beranda</a>
                     </li>
+                    <!-- kategori -->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="/categories">Kategori</a>
                     </li>
-
+                    <!-- produk -->
                     <li class="nav-item">
                         <a class="nav-link text-white" href="/products">Produk</a>
                     </li>
@@ -28,7 +29,7 @@
                             <button class="btn btn-outline-light" type="submit">Search</button>
                         </form>
                     </li>
-
+                    <!-- user authentication -->
                     @if(auth()->guard('web')->check())
                     <div class="dropdown">
                         <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,6 +45,7 @@
                         </ul>
                     </div>
                     @else
+                    <!--login  -->
                     <li class="nav-item">
                         <a class="btn btn-outline-light" href="{{ route('login') }}">Login</a>
                     </li>
