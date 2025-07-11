@@ -12,7 +12,6 @@ use \Binafy\LaravelCart\Models\Cart;
 class HomepageController extends Controller
 {
 
-
     public function index()
     {
         $categories = Categories::latest()->take(4)->get();
@@ -25,7 +24,7 @@ class HomepageController extends Controller
         ]);
     }
 
-    public function products(Request $request)
+     public function products(Request $request)
     {
         $title = "Products";
 
