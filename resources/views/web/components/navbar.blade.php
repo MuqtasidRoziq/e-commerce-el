@@ -35,7 +35,6 @@
                             {{ Auth::guard('web')->user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="#">Dashboard</a></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf

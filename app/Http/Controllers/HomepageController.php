@@ -17,14 +17,18 @@ class HomepageController extends Controller
         $categories = Categories::latest()->take(4)->get();
         $products = Product::paginate(20);
 
-        return view('web.homepage',[
+        // if (auth()->user()->isAdmin()) {
+        //     abort(403, 'akses ditolak!'); // Blokir akses admin ke controller user
+        // }
+
+        return view('web.homepage', [
             'categories' => $categories,
-            'products'=>$products,
-            'title'=>'Homepage'
+            'products' => $products,
+            'title' => 'Homepage'
         ]);
     }
 
-     public function products(Request $request)
+    public function products(Request $request)
     {
         $title = "Products";
 
@@ -36,13 +40,14 @@ class HomepageController extends Controller
 
         $products = $query->paginate(20);
 
-        return view('products',[
-            'title'=>$title,
+        return view('web.products', [
+            'title' => $title,
             'products' => $products,
         ]);
     }
 
-    public function product($slug){
+    public function product($slug)
+    {
         $product = Product::whereSlug($slug)->first();
 
         if (!$product) {
@@ -54,7 +59,7 @@ class HomepageController extends Controller
             ->take(4)
             ->get();
 
-        return view('web.product', [
+        return view('web.products', [
             'slug' => $slug,
             'product' => $product,
             'relatedProducts' => $relatedProducts,
@@ -65,8 +70,8 @@ class HomepageController extends Controller
     {
         $categories = Categories::latest()->paginate(20);
 
-        return view('web.categories',[
-            'title'=>'Categories',
+        return view('web.categories', [
+            'title' => 'Categories',
             'categories' => $categories,
         ]);
     }
@@ -75,15 +80,15 @@ class HomepageController extends Controller
     {
         $category = Categories::whereSlug($slug)->first();
 
-        if($category){
-            $products = Product::where('product_category_id',$category->id)->paginate(20);
+        if ($category) {
+            $products = Product::where('product_category_id', $category->id)->paginate(20);
 
             return view('.category_by_slug', [
-                'slug' => $slug, 
+                'slug' => $slug,
                 'category' => $category,
                 'products' => $products,
             ]);
-        }else{
+        } else {
             return abort(404);
         }
     }
@@ -99,18 +104,18 @@ class HomepageController extends Controller
             )
             ->where('user_id', auth()->guard('web')->user()->id)
             ->first();
-        
 
-        return view('web.cart',[
-            'title'=>'Cart',
+
+        return view('web.cart', [
+            'title' => 'Cart',
             'cart' => $cart,
         ]);
     }
 
     public function checkout()
     {
-        return view('web.checkout',[
-            'title'=>'Checkout'
+        return view('web.checkout', [
+            'title' => 'Checkout'
         ]);
     }
 }

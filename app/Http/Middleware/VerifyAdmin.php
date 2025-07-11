@@ -19,7 +19,6 @@ class VerifyAdmin
             return $next($request);
         }
 
-        return redirect()->route('home')->with('error', 'Akses ditolak!');
-
+        abort(403, 'Akses ditolak!'); // Blokir akses selain admin
     }
 }

@@ -20,6 +20,6 @@ class VerifyUser
             return $next($request);
         }
 
-        return redirect()->route('dashboard')->with('error', 'Akses ditolak!');
+        abort(403, 'Akses ditolak!'); // Blokir akses selain user biasa
     }
 }
