@@ -20,7 +20,7 @@ class HomepageController extends Controller
         if ($theme) {
             $this->themeFolder = $theme->folder;
         } else {
-            $this->themeFolder = 'theme.default';
+            $this->themeFolder = 'web';
         }
     }
 
@@ -36,7 +36,7 @@ class HomepageController extends Controller
         ]);
     }
 
-    public function products(Request $request)
+     public function products(Request $request)
     {
         $title = "Products";
 
