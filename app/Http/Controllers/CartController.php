@@ -14,7 +14,7 @@ class CartController extends Controller
     public function __construct(){
         $this->cart = Cart::query()->firstOrCreate(
             [
-                'user_id' => auth()->guard('customer')->user()->id
+                'user_id' => auth()->guard('web')->user()->id
             ]
         );
     }

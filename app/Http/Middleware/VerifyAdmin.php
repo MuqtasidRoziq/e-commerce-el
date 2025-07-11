@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsCustomerLogin
+class VerifyAdmin
 {
     /**
      * Handle an incoming request.
@@ -15,11 +15,11 @@ class IsCustomerLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Periksa apakah ada customer yang sudah login (misalnya, session aktif)
-        if (auth()->guard('customer')->check()) {
+        if (auth()->check() && auth()->user()->isAdmin()) {
             return $next($request);
         }
 
-        return redirect()->route('customer.login');
+        return redirect()->route('home')->with('error', 'Akses ditolak!');
+
     }
 }

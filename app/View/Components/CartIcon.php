@@ -25,7 +25,7 @@ class CartIcon extends Component
     {
         $total = 0;
 
-        if(auth()->guard('customer')->check()){
+        if(auth()->guard('web')->check()){
             $cart = Cart::query()
                 ->with(
                     [
@@ -33,7 +33,7 @@ class CartIcon extends Component
                         'items.itemable'
                     ]
                 )
-                ->where('user_id', auth()->guard('customer')->user()->id)
+                ->where('id', auth()->guard('web')->user()->id)
                 ->first();
 
             if($cart){

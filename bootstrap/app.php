@@ -13,8 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'check_customer_login' => App\Http\Middleware\CheckCustomerLogin::class,
-            'is_customer_login' => App\Http\Middleware\IsCustomerLogin::class,
+            'isUsers' => \App\Http\Middleware\VerifyUser::class,
+            'isAdmin' => \App\Http\Middleware\VerifyAdmin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

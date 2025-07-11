@@ -26,8 +26,6 @@ class Layout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view($this->default_template().'.components.layout',[
-            'themeFolder' => $this->default_template(),
-        ]);
+        return view('web.components.layout');
     }
 }

@@ -5,8 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\User;
 
-class CheckCustomerLogin
+class VerifyUser
 {
     /**
      * Handle an incoming request.
@@ -15,11 +16,10 @@ class CheckCustomerLogin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // Periksa apakah ada customer yang sudah login (misalnya, session aktif)
-        if (auth()->guard('customer')->check()) {
-            return redirect()->route('home'); // Redirect ke halaman home atau profile customer
+        if (auth()->check() && auth()->user()->isUser()) {
+            return $next($request);
         }
 
-        return $next($request); // Jika sudah login, lanjutkan ke route berikutnya
+        return redirect()->route('dashboard')->with('error', 'Akses ditolak!');
     }
 }

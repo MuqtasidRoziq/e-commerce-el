@@ -10,12 +10,12 @@ return [
         /*
          * The user table name.
          */
-        'table' => 'customers',
+        'table' => 'users',
 
         /*
          * The user foreign key.
          */
-        'foreign_id' => 'user_id',
+        'foreign_id' =>'user_id',
     ],
 
     /*

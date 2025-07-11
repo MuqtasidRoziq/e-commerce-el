@@ -105,7 +105,7 @@
 </head>
 <body>
   
-      <x-navbar themeFolder="{{ $themeFolder }}"></x-navbar>
+      <x-navbar ></x-navbar>
 
       <div class="container-fluid py-4">
             {{  $slot }}
