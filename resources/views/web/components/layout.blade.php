@@ -93,7 +93,7 @@
                   font-size: 0.85rem;
             }
 
-            .btn-sm {
+  .btn-sm {
                   font-size: 0.8rem;
                   padding: 0.25rem 0.5rem;
             }
@@ -132,7 +132,6 @@
 </head>
 
 <body>
-
 
       <x-navbar></x-navbar>
 
