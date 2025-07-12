@@ -124,9 +124,5 @@
                 @endforeach
             </tbody>
         </table>
-
-        <div class="mt-3">
-            {{ $products->links() }}
-        </div>
     </div>
 </x-layouts.app>

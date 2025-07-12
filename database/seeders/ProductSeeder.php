@@ -22,7 +22,7 @@ class ProductSeeder extends Seeder
         $faker = \Faker\Factory::create();
 
         foreach ($categories as $category) {
-            for ($i = 1; $i <= 200; $i++) { // 200 x 5 = 1000
+            for ($i = 1; $i <= 10; $i++) { // 200 x 5 = 1000
                 $products[] = [
                     'name' => $category->name . ' Product ' . $i,
                     'slug' => strtolower(str_replace(' ', '-', $category->name)) . '-product-' . $i,

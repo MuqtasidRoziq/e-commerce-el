@@ -16,7 +16,7 @@
     <div class="container my-5">
         <div class="row g-5 align-items-start">
             <div class="col-md-6">
-                <div class="bg-white shadow rounded p-3 shadow-lg">
+                <div class="bg-white rounded p-3 shadow-lg">
                     <img src="{{ $product->image_url ?? 'https://via.placeholder.com/500x500' }}" class="img-fluid rounded w-100" alt="{{ $product->name }}">
                 </div>
                 <div class="mt-4">

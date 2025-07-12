@@ -29,10 +29,6 @@
                     <div class="alert alert-info">Belum ada produk pada kategori ini.</div>
                 </div>
             @endforelse
-
-            <div class="d-flex justify-content-center w-100 mt-4">
-                {{ $products->links('vendor.pagination.simple-bootstrap-5') }}
-            </div>
         </div>
     </div>
     

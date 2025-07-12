@@ -122,7 +122,7 @@ $Products = [
 
         <!-- lihat semua sesuai kategori -->
         <div class="text-center d-flex justify-content-start ms-3 mb-5">
-            <a href="/produk?brand={{ strtolower($category) }}" class="btn btn-outline-secondary">
+            <a href="/product?brand={{ strtolower($category) }}" class="btn btn-outline-secondary">
                 Lihat Semua Produk {{ $category }}
             </a>
         </div>

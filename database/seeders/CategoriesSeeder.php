@@ -16,34 +16,34 @@ class CategoriesSeeder extends Seeder
         Categories::insert(
             [
                 [
-                    'name' => 'Electronics', 
-                    'slug' => 'electronics',
+                    'name' => 'APPLE', 
+                    'slug' => 'apple',
                     'description' => 'Electronic gadgets and devices',
-                    'image'=> 'https://placehold.co/300x300?text=Electronics'
+                    'image'=> 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg'
                 ],
                 [
-                    'name' => 'Books', 
-                    'slug' => 'books',
-                    'description' => 'Various kinds of books',
-                    'image'=> 'https://placehold.co/300x300?text=Books'
+                    'name' => 'SAMSUNG', 
+                    'slug' => 'samsung',
+                    'description' => 'Electronic gadgets and devices',
+                    'image'=> 'https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg'
                 ],
                 [
-                    'name' => 'Clothing', 
-                    'slug' => 'clothing',
-                    'description' => 'Men and women clothing',
-                    'image'=> 'https://placehold.co/300x300?text=Clothing'
+                    'name' => 'REALME', 
+                    'slug' => 'realme',
+                    'description' => 'Electronic gadgets and devices',
+                    'image'=> 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Realme_logo_SVG.svg'
                 ],
                 [
-                    'name' => 'Home & Kitchen', 
-                    'slug' => 'home-kitchen',
-                    'description' => 'Home appliances and kitchenware',
-                    'image'=> 'https://placehold.co/300x300?text=Home+%26+Kitchen'
+                    'name' => 'XIAOMI', 
+                    'slug' => 'xiaomi',
+                    'description' => 'Electronic gadgets and devices',
+                    'image'=> 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Xiaomi_logo.svg/512px-Xiaomi_logo.svg.png',
                 ],
                 [
-                    'name' => 'Sports', 
-                    'slug' => 'sports',
-                    'description' => 'Sports equipment and accessories',
-                    'image'=> 'https://placehold.co/300x300?text=Sports'
+                    'name' => 'VIVO',
+                    'slug' => 'vivo',
+                    'description' => 'Electronic gadgets and devices',
+                    'image'=> 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Vivo_logo_2019.svg/330px-Vivo_logo_2019.svg.png'
                 ],
             ]
         );

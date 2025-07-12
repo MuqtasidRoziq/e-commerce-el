@@ -6,25 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Models\Categories;
 use App\Models\Product;
-// theme folder
-use App\Traits\ThemeTrait;
-use Binafy\LaravelCart\Models\CartItem;
-use Binafy\LaravelCart\Models\CartItemable;
-use Binafy\LaravelCart\Models\CartItemableType;
-
-use \Binafy\LaravelCart\Models\Cart;
 
 class HomepageController extends Controller
 {
 
     public function index()
     {
-        $categories = Categories::latest()->take(4)->get();
+        $categories = Categories::all();
         $products = Product::paginate(20);
-
-        // if (auth()->user()->isAdmin()) {
-        //     abort(403, 'akses ditolak!'); // Blokir akses admin ke controller user
-        // }
 
         return view('web.homepage', [
             'categories' => $categories,
