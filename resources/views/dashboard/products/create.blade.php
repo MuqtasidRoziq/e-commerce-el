@@ -13,7 +13,7 @@
         <flux:badge color="red" class="mb-3 w-full">{{session()->get('errorMessage')}}</flux:badge>
     @endif
 
-    <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('produk.store') }}" method="post" enctype="multipart/form-data">
         @csrf
 
         <flux:input label="Name" name="name" class="mb-3" />
@@ -43,7 +43,7 @@
 
         <div class="mt-4">
             <flux:button type="submit" variant="primary">Save</flux:button>
-            <flux:link href="{{ route('products.index') }}" variant="ghost" class="ml-3">Back</flux:link>
+            <flux:link href="{{ route('produk.index') }}" variant="ghost" class="ml-3">Back</flux:link>
         </div>
     </form>
 </x-layouts.app>

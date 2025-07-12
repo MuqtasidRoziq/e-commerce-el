@@ -7,14 +7,14 @@
 
     <div class="flex justify-between items-center mb-4">
         <div>
-            <form action="{{ route('products.index') }}" method="get">
+            <form action="{{ route('produk.index') }}" method="get">
                 @csrf
                 <flux:input icon="magnifying-glass" name="q" value="{{ $q }}" placeholder="Search Products" />
             </form>
         </div>
         <div>
             <flux:button icon="plus">
-                <flux:link href="{{ route('products.create') }}" variant="subtle">Add New Product</flux:link>
+                <flux:link href="{{ route('produk.create') }}" variant="subtle">Add New Product</flux:link>
             </flux:button>
         </div>
     </div>
@@ -111,9 +111,9 @@
                             <flux:dropdown>
                                 <flux:button icon:trailing="chevron-down">Actions</flux:button>
                                 <flux:menu>
-                                    <flux:menu.item icon="pencil" href="{{ route('products.edit', $product->id) }}">Edit</flux:menu.item>
+                                    <flux:menu.item icon="pencil" href="{{ route('produk.edit', $product->id) }}">Edit</flux:menu.item>
                                     <flux:menu.item icon="trash" variant="danger" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this product?')) document.getElementById('delete-form-{{ $product->id }}').submit();">Delete</flux:menu.item>
-                                    <form id="delete-form-{{ $product->id }}" action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                    <form id="delete-form-{{ $product->id }}" action="{{ route('produk.destroy', $product->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                     </form>

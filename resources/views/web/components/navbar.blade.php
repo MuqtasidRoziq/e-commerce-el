@@ -16,7 +16,7 @@
                     </li>
                     <!-- kategori -->
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="/categories">Kategori</a>
+                        <a class="nav-link text-white" href="categories">Kategori</a>
                     </li>
                     <!-- produk -->
                     <li class="nav-item">

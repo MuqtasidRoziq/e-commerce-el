@@ -19,6 +19,6 @@ class VerifyAdmin
             return $next($request);
         }
 
-        abort(403, 'Akses ditolak!'); // Blokir akses selain admin
+        abort(403, 'Akses ditolak!'); 
     }
 }
