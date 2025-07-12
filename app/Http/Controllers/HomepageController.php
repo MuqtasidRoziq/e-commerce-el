@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Categories;
 use App\Models\Product;
+use \Binafy\LaravelCart\Models\Cart;
 
 class HomepageController extends Controller
 {
@@ -13,7 +14,12 @@ class HomepageController extends Controller
     public function index()
     {
         $categories = Categories::all();
-        $products = Product::paginate(20);
+        $products = Product::withSum([
+            'orderDetails as terjual' => function ($query) {
+                $query->join('orders', 'orders.id', '=', 'order_details.order_id')
+                    ->where('orders.status', 'completed'); // hanya hitung yang sudah selesai
+            }
+        ], 'quantity')->paginate(20);
 
         return view('web.homepage', [
             'categories' => $categories,
@@ -27,16 +33,19 @@ class HomepageController extends Controller
         $title = "Products";
 
         $query = Product::query();
+        $categories = Categories::all();
 
         if ($request->has('search') && $request->search) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        $products = $query->paginate(20);
+        $products = $query->get();
 
-        return view('web.products',[
-            'title'=>$title,
+        return view('web.products', [
+            'title' => $title,
             'products' => $products,
+            'categories' => $categories,
+            'search' => $request->search ?? '',
         ]);
     }
 
@@ -62,11 +71,18 @@ class HomepageController extends Controller
 
     public function categories()
     {
-        $categories = Categories::latest()->paginate(20);
+        $categories = Categories::all();
+        $products = Product::withSum([
+            'orderDetails as terjual' => function ($query) {
+                $query->join('orders', 'orders.id', '=', 'order_details.order_id')
+                    ->where('orders.status', 'completed'); // hanya hitung yang sudah selesai
+            }
+        ], 'quantity')->paginate(5);
 
         return view('web.categories', [
             'title' => 'Categories',
             'categories' => $categories,
+            'products' => $products,
         ]);
     }
 
@@ -77,7 +93,7 @@ class HomepageController extends Controller
         if ($category) {
             $products = Product::where('product_category_id', $category->id)->paginate(20);
 
-            return view('.category_by_slug', [
+            return view('web.category_by_slug', [
                 'slug' => $slug,
                 'category' => $category,
                 'products' => $products,
@@ -89,43 +105,14 @@ class HomepageController extends Controller
 
     public function cart()
     {
-        $dummyProduct1 = (object)[
-        'id' => 1,
-        'name' => 'iPhone 15 Pro',
-        'price' => 19999000,
-        'image_url' => 'https://www.apple.com/v/iphone/home/cb/images/overview/select/iphone_16pro__erw9alves2qa_xlarge_2x.png',
-    ];
+        $cart = Cart::query()
+            ->with(
+                [
+                    'items',
+                    'items.itemable'
+                ]
+            )->where('user_id', auth()->guard('web')->user()->id)->first();
 
-    $dummyProduct2 = (object)[
-        'id' => 2,
-        'name' => 'Samsung Galaxy S23 Ultra',
-        'price' => 17999000,
-        'image_url' => 'https://fdn2.gsmarena.com/vv/pics/samsung/samsung-galaxy-s23-ultra-1.jpg',
-    ];
-
-    // Dummy items
-    $dummyCartItems = collect([
-        (object)[
-            'id' => 101,
-            'quantity' => 1,
-            'itemable' => $dummyProduct1,
-        ],
-        (object)[
-            'id' => 102,
-            'quantity' => 2,
-            'itemable' => $dummyProduct2,
-        ],
-    ]);
-
-    $total = $dummyCartItems->sum(function ($item) {
-        return $item->itemable->price * $item->quantity;
-    });
-
-    // Simulasikan object cart
-    $cart = (object)[
-        'items' => $dummyCartItems,
-        'total' => $total,
-    ];
         return view('web.cart', [
             'title' => 'Cart',
             'cart' => $cart,
@@ -134,6 +121,8 @@ class HomepageController extends Controller
 
     public function checkout()
     {
+        // $cart = Cart::
+
         return view('web.checkout', [
             'title' => 'Checkout'
         ]);

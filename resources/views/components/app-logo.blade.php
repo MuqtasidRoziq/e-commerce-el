@@ -3,5 +3,5 @@
 </div>
 
 <div class="ms-1 grid flex-1 text-start text-lg">
-    <span class="mb-0.5 truncate leading-none font-semibold">Awene Store</span>
+    <span class="mb-0.5 truncate leading-none font-semibold">Msthu</span>
 </div>

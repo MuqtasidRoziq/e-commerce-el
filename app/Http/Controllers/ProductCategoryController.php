@@ -143,7 +143,7 @@ class ProductCategoryController extends Controller
 
         $category->save();
 
-        return redirect()->back()
+        return redirect()->route('kategori.index')
             ->with(
                 [
                     'successMessage'=>'Data Berhasil Disimpan'
