@@ -35,6 +35,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
     Route::resource('kategori', ProductCategoryController::class);
     Route::resource('produk', ProductController::class);
 
+    Route::post('products/sync/{id}', [ProductController::class, 'sync'])->name('products.sync');
+    Route::post('category/sync/{id}', [ProductCategoryController::class, 'sync'])->name('category.sync');
 });
 
 
