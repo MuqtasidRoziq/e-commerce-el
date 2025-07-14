@@ -69,6 +69,14 @@
         }
     }
 
+    /* detailproduk  */
+    .bg-orange{
+        background-color: orange !important;
+    }
+    .text-orange {
+        color: orange !important;
+    }
+
 
     /* KATEGORI STYLE */
     .carousel-control-next-icon,

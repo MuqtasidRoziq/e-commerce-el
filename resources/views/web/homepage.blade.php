@@ -3,11 +3,9 @@
 
     <x-slot name="title"> Homepage</x-slot>
 
-    <!-- banner -->
-    <!-- Section Judul -->
 
     <!-- Carousel -->
-    <div id="promo-carousel" class="carousel slide mb-5 bg-danger py-5" data-bs-ride="carousel" data-bs-interval="3000">
+    <div id="promo-carousel" class="carousel slide mb-5 py-5" data-bs-ride="carousel" data-bs-interval="3000">
         <div class="carousel-inner text-center">
             @php $first = true; @endphp
             @foreach ($products as $product)
@@ -18,7 +16,6 @@
                         <div class="card bg-dark text-white shadow" style="width: 18rem; height: 30rem;">
                             <img src="{{ $product->image}}" class="card-img-top"
                                 style="height: 330px; object-fit: cover;" alt="{{ $product['name'] }}">
-
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <span class="badge bg-primary mb-2">{{ $product->category->name }}</span>
@@ -103,7 +100,8 @@
         <div class="container py-3">
 
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-4">
-                @foreach ($products as $product)
+                <!-- tampilkan hanya 10 produk -->
+                @foreach ($products->take(10) as $product)
                     <div class="col ">
                         <div class="card-body position-relative" style="min-height: 410px; width: 110%;">
                             {{-- Card Produk --}}
@@ -148,20 +146,7 @@
             <div class=" d-flex text-center my-5">
                 <a href="/products" class="btn btn-outline-primary ">Lihat Semua Produk</a>
             </div>
-            <hr class="border-top border-black opacity-25 my-3" />
-
-            <!-- Navigasi Prev/Next -->
-            <div class="d-flex justify-content-center mt-4 gap-3">
-                <button class="btn btn-outline-dark" id="prevBtn">Previous</button>
-                <button class="btn btn-outline-dark" id="nextBtn">Next</button>
-            </div>
         </div>
-
     </div>
 
 </x-layout>
-
-<style>
-
-
-</style>

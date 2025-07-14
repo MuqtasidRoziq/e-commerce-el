@@ -52,10 +52,8 @@
                     @endif
 
                     <li class="nav-item">
-                        <x-cart-icon>
-                        </x-cart-icon>
+                        <x-cart-icon></x-cart-icon>
                     </li>
-
                 </ul>
             </div>
         </div>
