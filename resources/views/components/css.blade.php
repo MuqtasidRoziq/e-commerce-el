@@ -1,4 +1,25 @@
 <style>
+    /* banner */
+    .promo-card {
+        height: 100%;
+    }
+
+    .promo-img {
+        height: 220px;
+        object-fit: cover;
+    }
+
+    @media (max-width: 576px) {
+        .promo-img {
+            height: 160px !important;
+        }
+
+        .promo-card {
+            height: auto !important;
+            min-height: 350px;
+        }
+    }
+
     /* Efek hover utama card */
     .hover-shadow {
         transition: all 0.5s ease;
@@ -17,6 +38,7 @@
     .card-body {
         position: relative;
         height: 110px;
+        border-radius: 10px;
         /* Atur sesuai kebutuhan tinggi konten */
     }
 
@@ -70,9 +92,10 @@
     }
 
     /* detailproduk  */
-    .bg-orange{
+    .bg-orange {
         background-color: orange !important;
     }
+
     .text-orange {
         color: orange !important;
     }
@@ -128,7 +151,7 @@
         padding-bottom: 1rem;
         width: max-content;
     }
-    
+
 
     @keyframes scroll-left {
         0% {

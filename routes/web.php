@@ -37,7 +37,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('kategori', ProductCategoryController::class);
     Route::resource('produk', ProductController::class);
-
+Route::resource('orders', OrderController::class);
+    
     Route::post('products/sync/{id}', [ProductController::class, 'sync'])->name('products.sync');
     Route::post('category/sync/{id}', [ProductCategoryController::class, 'sync'])->name('category.sync');
 });

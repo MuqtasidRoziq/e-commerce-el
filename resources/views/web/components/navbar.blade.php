@@ -42,6 +42,9 @@
                                     <button class="dropdown-item" type="submit">Logout</button>
                                 </form>
                             </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ url('/pesanan') }}">Pesanan Saya</a>
+                            </li>
                         </ul>
                     </div>
                     @else
