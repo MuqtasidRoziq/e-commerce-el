@@ -25,7 +25,7 @@
 
         @if($category->image)
             <div class="mb-3">
-                <img src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}" class="w-32 h-32 object-cover rounded">
+                <img src="{{ Storage::url($category->image) }}" alt="{{ $category->name }}" class="w-30 object-cover rounded">
             </div>
         @endif
 

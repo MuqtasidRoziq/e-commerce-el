@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 
 use App\Http\Controllers\ApiController;
 
+Route::get('test-navbar', [HomepageController::class, 'countCart'])->name('test.navbar');
 Route::get('/', [HomepageController::class, 'index'])->name('home');
 Route::get('products', [HomepageController::class, 'products']);
 Route::get('product/{slug}', [HomepageController::class, 'product'])->name('product.show');
@@ -37,6 +38,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
     Route::resource('kategori', ProductCategoryController::class);
     Route::resource('produk', ProductController::class);
 
+    Route::post('products/sync/{id}', [ProductController::class, 'sync'])->name('products.sync');
+    Route::post('category/sync/{id}', [ProductCategoryController::class, 'sync'])->name('category.sync');
 });
 
 

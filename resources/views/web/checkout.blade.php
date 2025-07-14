@@ -6,7 +6,7 @@
             <!-- Detail Penagihan -->
             <div class="col-md-7">
                 <h4 class="mb-4">Detail Penagihan</h4>
-                <form>
+                <form action="">
                     <div class="mb-3">
                         <label for="fullname" class="form-label">Nama Lengkap</label>
                         <input type="text" class="form-control" id="fullname" placeholder="Masukkan nama lengkap Anda">

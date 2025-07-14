@@ -15,11 +15,11 @@
                     <div class="d-flex justify-content-center">
                         <div class="card bg-dark text-white shadow" style="width: 18rem; height: 30rem;">
                             <img src="{{ $product->image}}" class="card-img-top"
-                                style="height: 330px; object-fit: cover;" alt="{{ $product['name'] }}">
+                                style="height: 330px; object-fit: cover;" alt="{{ $product->name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <span class="badge bg-primary mb-2">{{ $product->category->name }}</span>
-                                <p class="card-text mb-2">Rp{{ number_format($product['price'], 0, ',', '.') }}</p>
+                                <p class="card-text mb-2">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
                                 <a href="/product/{{ $product->slug}}" class="btn btn-outline-light btn-sm">Lihat
                                     Detail</a>
                             </div>
@@ -51,7 +51,7 @@
                     <div class="card text-center flex-shrink-0 hover-shadow" style="width: 15rem; height: 13rem;">
                         <div class="card-body">
                             @if(isset($category->image))
-                                <img src="{{ $category->image }}" alt="{{ $category }} Logo"
+                                <img src="{{ Storage::url($category->image) }}" alt="{{ $category }} Logo"
                                     style="height: 40px; object-fit: contain;" class="my-5">
                             @endif
                             <p class="card-text small mb-0">Temukan produk terbaru dari {{ $category->name }} di sini.</p>
@@ -78,7 +78,7 @@
                         <div class="card-body">
 
                             @if(isset($category->image))
-                                <img src="{{ $category->image}}" alt="{{ $category }} Logo"
+                                <img src="{{ Storage::url($category->image) }}" alt="{{ $category }} Logo"
                                     style="height: 40px; object-fit: contain;" class="my-5">
                             @endif
                             <p class="card-text fw-semibold small text-dark mb-0">
@@ -113,8 +113,8 @@
                                 <div class="card-body position-relative">
                                     <div class="card-info">
                                         <!-- logo brand sesuaikan ukuran -->
-                                        <img src="{{ $category->image }}" alt="{{ $category->name }}"
-                                            class="mb-2" style="width: 50px;">
+                                        <img src="{{ Storage::url($product->category->image) }}" alt="{{ $category->name }}"
+                                            class="mb-2" style="width: 30px;">
                                         <div class="d-flex justify-content-center ">
                                             <p class="card-text text-danger fs-5 fw-medium ">
                                                 Rp{{ number_format($product->price, 0, ',', '.') }}</p>
@@ -128,7 +128,7 @@
                                             </div>
                                             {{-- terjual --}}
                                             <div class="mb-1 text-muted">
-                                                {{ $product['terjual'] }} Terjual
+                                                {{ $product->terjual ?? 0 }} Terjual
                                             </div>
                                         </div>
 
