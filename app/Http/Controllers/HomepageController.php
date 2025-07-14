@@ -2,14 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use Binafy\LaravelCart\Models\CartItem;
+use Binafy\LaravelCart\Models\Cart;
 use Illuminate\Http\Request;
 
 use App\Models\Categories;
 use App\Models\Product;
-use \Binafy\LaravelCart\Models\Cart;
 
 class HomepageController extends Controller
 {
+
+    public function countCart()
+    {
+        $total = 0;
+
+        if (auth()->check()) {
+            $total = CartItem::query()
+                ->with('itemable')
+                ->whereHas('cart', function ($query) {
+                    $query->where('user_id', auth()->guard('web')->user()->id);
+                })
+                ->sum('quantity');
+        }
+        // dd($total);
+        return view('components.cart-icon', compact('total'));
+
+    }
 
     public function index()
     {
