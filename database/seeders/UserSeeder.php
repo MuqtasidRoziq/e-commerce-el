@@ -26,6 +26,18 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('utiya123'),
                 'role' => 'user',
             ],
+            [
+                'name' => 'Resta Sabrina',
+                'email' => 'resta@gmail.com',
+                'password' => bcrypt('resta123'),
+                'role' => 'admin'
+            ],
+            [
+                'name' => 'Rhiki Sulistiyo',
+                'email' => 'rhiki@gmail.com',
+                'password' => bcrypt('rhiki123'),
+                'role' => 'user' 
+            ],
         ]);
     }
 }
