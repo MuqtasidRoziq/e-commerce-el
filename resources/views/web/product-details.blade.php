@@ -1,48 +1,29 @@
 <x-css />
 <x-layout>
     <x-slot name="title"> {{$product->name}}</x-slot>
-    <!-- Modal: Peringatan Pilih Warna -->
-    <div class="modal fade" id="chooseColorModal" tabindex="-1" aria-labelledby="chooseColorModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content ">
-                <div class="modal-header  bg-opacity-75">
-                    <h5 class="modal-title text-dark" id="chooseColorModalLabel">⚠️ Oops! Kamu belum memilih warna produk</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body fs-6 text-dark text-center fw-semibold">
-                    Pilih warna terlebih dahulu untuk menampilkan opsi penyimpanan.
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="chooseStorageModal" tabindex="-1" aria-labelledby="chooseColorModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content ">
-                <div class="modal-header  bg-opacity-75">
-                    <h5 class="modal-title text-dark" id="chooseColorModalLabel">⚠️ Harap memilih Penyimpanan produk</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body fs-6 text-dark text-center fw-semibold">
-                  Silakan pilih opsi penyimpanan terlebih dahulu sebelum melanjutkan transaksi.
-                </div>
-            </div>
-        </div>
-    </div>
 
-    @if(session('error'))
-    <div class="container mt-4">
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <div class="modal fade" id="chooseStorageModal" tabindex="-1" aria-labelledby="chooseColorModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+                <div class="modal-header  bg-opacity-75">
+                    <h5 class="modal-title text-dark" id="chooseColorModalLabel">⚠️ Harap memilih Penyimpanan produk
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                </div>
+                <div class="modal-body fs-6 text-dark text-center fw-semibold">
+                    Silakan pilih opsi penyimpanan terlebih dahulu sebelum melanjutkan transaksi.
+                </div>
+            </div>
         </div>
     </div>
-    @endif
 
     <div class="container my-5">
         <div class="row g-5 align-items-start">
             <div class="col-md-6">
                 <div class="bg-white rounded p-3 shadow-lg">
-                    <img src="{{ $product->image_url ?? 'https://via.placeholder.com/500x500' }}" class="img-fluid rounded w-100" alt="{{ $product->name }}">
+                    <img src="{{ $product->image_url ?? 'https://via.placeholder.com/500x500' }}"
+                        class="img-fluid rounded w-100" alt="{{ $product->name }}">
                 </div>
                 <div class="mt-4">
                     <span class="badge bg-secondary">{{ $product->category->name ?? 'Kategori Tidak Diketahui' }}</span>
@@ -51,82 +32,53 @@
             <div class="col-md-6">
                 <h1 class="mb-2 fw-bold">{{ $product->name }}</h1>
                 <div class="mb-3">
-                    <span class="fs-4 text-success fw-semibold">Rp.{{ number_format($product->price, 0, ',', '.') }}</span>
+                    <span
+                        class="fs-4 text-success fw-semibold">Rp.{{ number_format($product->price, 0, ',', '.') }}</span>
                     @if($product->old_price)
-                    <span class="text-muted text-decoration-line-through ms-2">Rp{{ number_format($product->old_price, 0, ',', '.') }}</span>
+                        <span
+                            class="text-muted text-decoration-line-through ms-2">Rp{{ number_format($product->old_price, 0, ',', '.') }}</span>
                     @endif
                 </div>
                 <div class="mb-4">
                     <p class="text-muted">{{ $product->description }}</p>
                 </div>
 
-                <form action="{{ route('cart.add') }}" method="POST" class="mb-4">
+                <form action="{{ route('cart.add') }}" method="POST" class="mb-4"  id="addToCartForm">
                     @csrf
-
+                    <div class="mb-4">
+                        <span>Stok:</span>
+                        <span class="{{ $product->stock > 0 ? 'text-muted' : 'text-danger' }}">
+                            {{ $product->stock > 0 ? $product->stock : 'Habis' }}
+                        </span>
+                    </div>
+                    <div>
+                        <span><strong>Penyimpanan:</strong></span>
+                        <div class="d-flex gap-3 mb-3">
+                            @foreach(['128 GB', '256 GB', '512 GB'] as $storage)
+                                <button type="button" class="btn btn-outline-dark btn-sm storage-btn p-2 mt-2">{{ $storage }}</button>
+                            @endforeach
+                            <input type="hidden" name="storage" id="storageSizeInput" value="">
+                        </div>
+                    </div>
                     {{-- Baris: Input + Tambah ke Keranjang --}}
                     <div class="d-flex gap-2 mb-2" style="max-width:70%;">
                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-
-                        {{-- Input quantity yang bisa melar --}}
-                        <input type="number" name="quantity" class="form-control flex-grow-1" value="1" min="1" max="{{ $product->stock }}">
-
+                
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changeQuantity(-1)"
+                            id="decreaseBtn">-</button>
+                
+                        <input type="text" id="quantityInput" name="quantity" value="1" value="1" min="1" max="{{ $product->stock }}"
+                            class="form-control form-control-sm text-center mx-1" style="width: 50px;">
+                
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changeQuantity(1)">+</button>
+                
                         {{-- Tombol keranjang dengan lebar sesuai teks --}}
                         <button class="btn btn-primary" type="submit" name="action" value="add" style="white-space: nowrap;">
-                            <i class="bi bi-cart-plus me-1"></i> Tambahkan ke Keranjang
+                            <i class="bi bi-cart-plus me-1"><img src="{{ asset('static/cart.png') }}" alt="image cart"
+                                    style="width: 30px;"></i>
                         </button>
                     </div>
-
-                    {{-- Baris: Beli Sekarang --}}
-                    @if($product->stock > 0)
-                    <a href="{{ route('checkout.index') }}" id="buyNowBtn" class="btn btn-success w-100">
-                        <i class="bi bi-cash me-1"></i> Beli Sekarang
-                    </a>
-                    @else
-                    <button class="btn btn-secondary w-100" type="button" disabled>
-                        <i class="bi bi-cart-dash me-1"></i> Habis
-                    </button>
-                    @endif
                 </form>
-
-                <ul class="list-group list-group-flush mb-4">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span><strong>Stok:</strong></span>
-                        <span class="{{ $product->stock > 0 ? 'text-success' : 'text-danger' }}">
-                            {{ $product->stock > 0 ? $product->stock : 'Habis' }}
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span><strong>Kategori:</strong></span>
-                        <span>{{ $product->category->name ?? '-' }}</span>
-                    </li>
-
-                    <li class="list-group-item">
-                        <div class="mb-2">
-                            <strong>Warna:</strong>
-                            <span id="selected-color" class="ms-2">-</span>
-                        </div>
-                        <div class="d-flex gap-4 flex-wrap mt-2">
-                            @foreach (['gray' => '#7a7a7a', 'black' => '#000000', 'icyblue' => '#c5dbe8'] as $name => $color)
-                            <div class="color-circle"
-                                style="background-color: {{ $color }};"
-                                data-color-name="{{ ucfirst($name) }}"
-                                title="{{ ucfirst($name) }}">
-                            </div>
-                            @endforeach
-                        </div>
-                    </li>
-
-                    <li class="list-group-item ">
-                        <span><strong>Penyimpanan:</strong></span>
-                        <div class="d-flex gap-3 mb-3">
-                            @foreach(['256 GB', '512 GB'] as $size)
-                            <button class="btn btn-outline-dark btn-sm storage-btn p-2 mt-2">{{ $size }}</button>
-                            @endforeach
-                        </div>
-                    </li>
-
-
-                </ul>
             </div>
         </div>
 
@@ -155,13 +107,13 @@
                 <!-- Bar rating -->
                 <div>
                     @for($i = 5; $i >= 1; $i--)
-                    <div class="d-flex align-items-center mb-1">
-                        <div class="me-1" style="width: 24px">{{ $i }}</div>
-                        <div class="progress flex-grow-1" style="height: 10px;">
-                            <div class="progress-bar bg-orange" style="width:{{ $i == 3 ? '100%' : '0%' }}"></div>
+                        <div class="d-flex align-items-center mb-1">
+                            <div class="me-1" style="width: 24px">{{ $i }}</div>
+                            <div class="progress flex-grow-1" style="height: 10px;">
+                                <div class="progress-bar bg-orange" style="width:{{ $i == 3 ? '100%' : '0%' }}"></div>
+                            </div>
+                            <div class="ms-2 small">{{ $i == 3 ? 104 : 0 }}</div>
                         </div>
-                        <div class="ms-2 small">{{ $i == 3 ? 104 : 0 }}</div>
-                    </div>
                     @endfor
                 </div>
             </div>
@@ -173,36 +125,36 @@
         <h3 class="mb-4">Produk Lainnya</h3>
         <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
             @foreach($relatedProducts as $relatedProduct)
-            <div class="col">
+                <div class="col">
 
-                <div class="card h-100 text-center hover-shadow related-card">
-                    <img src="{{ $relatedProduct->image_url ?? 'https://via.placeholder.com/350x200?text=No+Image' }}" class="card-img-top" alt="{{ $relatedProduct->name }}">
-                    <h5 class="card-title mt-3">{{ $relatedProduct->name }}</h5>
-                    <div class="card-body position-relative">
+                    <div class="card h-100 text-center hover-shadow related-card">
+                        <img src="{{ $relatedProduct->image_url ?? 'https://via.placeholder.com/350x200?text=No+Image' }}"
+                            class="card-img-top" alt="{{ $relatedProduct->name }}">
+                        <h5 class="card-title mt-3">{{ $relatedProduct->name }}</h5>
+                        <div class="card-body position-relative">
 
-                        <div class="d-flex justify-content-center ">
-                            <span class="fw-bold text-primary">Rp {{ number_format($relatedProduct->price, 0, ',', '.') }}</span>
-                        </div>
+                            <div class="d-flex justify-content-center ">
+                                <span class="fw-bold text-primary">Rp
+                                    {{ number_format($relatedProduct->price, 0, ',', '.') }}</span>
+                            </div>
 
-                        <div class="card-action">
-                            <a href="{{ route('product.show', $relatedProduct->slug) }}" class="btn btn-outline-primary btn-sm">Lihat Detail</a>
+                            <div class="card-action">
+                                <a href="{{ route('product.show', $relatedProduct->slug) }}"
+                                    class="btn btn-outline-primary btn-sm">Lihat Detail</a>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
-            </div>
 
-
-            <!-- ============================================ -->
-
-
-
+                <!-- ============================================ -->
 
             @endforeach
             @if($relatedProducts->isEmpty())
-            <div class="col">
-                <div class="alert alert-info">Tidak ada produk terkait.</div>
-            </div>
+                <div class="col">
+                    <div class="alert alert-info">Tidak ada produk terkait.</div>
+                </div>
             @endif
         </div>
     </div>
@@ -210,7 +162,6 @@
 
 </x-layout>
 <style>
-    
     .related-card {
         position: relative;
         transition: all 0.3s ease;
@@ -252,67 +203,58 @@
         background-color: #000;
         color: white;
     }
+
     .modal-header {
         background-color: #fff3cd;
         color: #856404;
     }
 </style>
 <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Global untuk validasi storage
+        window.selectedStorage = null;
 
-    let selectedColor = null;
-    // Pilih warna
-    document.querySelectorAll('.color-circle').forEach(circle => {
-        circle.addEventListener('click', function() {
-            // Reset semua
-            document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('selected'));
-            this.classList.add('selected');
+        // Tombol storage
+        document.querySelectorAll('.storage-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.storage-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
 
-            // Set warna
-            selectedColor = this.getAttribute('data-color-name');
-            document.getElementById('selected-color').textContent = selectedColor;
+                window.selectedStorage = this.textContent.trim();
+                document.getElementById('storageSizeInput').value = window.selectedStorage;
+            });
         });
-    });
 
-    // Validasi penyimpanan
-    document.querySelectorAll('.storage-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            if (!selectedColor) {
-                e.preventDefault();
-                const modal = new bootstrap.Modal(document.getElementById('chooseColorModal'));
-                modal.show();
-                return;
-            }
-
-            // Hapus dan tambahkan active
-            document.querySelectorAll('.storage-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-
-    let selectedStorage = null;
-    document.querySelectorAll('.storage-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            if (!selectedColor) {
-                e.preventDefault();
-                const modal = new bootstrap.Modal(document.getElementById('chooseColorModal'));
-                modal.show();
-                return;
-            }
-
-            // Hapus dan tambahkan active
-            document.querySelectorAll('.storage-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-
-            // Set penyimpanan yang dipilih
-            selectedStorage = this.textContent.trim();
-        });
-    });
-    // jika ingin beli sekarang harus sudah memilih storage
-    document.getElementById('buyNowBtn').addEventListener('click', function(e) {
-        if (!selectedColor || !selectedStorage) {
-            e.preventDefault();
-            const modal = new bootstrap.Modal(document.getElementById('chooseStorageModal'));
-            modal.show();
+        // Validasi submit form
+        const addToCartForm = document.getElementById('addToCartForm');
+        if (addToCartForm) {
+            addToCartForm.addEventListener('submit', function (e) {
+                if (!window.selectedStorage) {
+                    e.preventDefault();
+                    const modal = new bootstrap.Modal(document.getElementById('chooseStorageModal'));
+                    modal.show();
+                }
+            });
         }
+
+        // Quantity logic
+        const maxStock = {{ $product->stock }};
+        const quantityInput = document.getElementById('quantityInput');
+        const decreaseBtn = document.getElementById('decreaseBtn');
+
+        function changeQuantity(change) {
+            let currentVal = parseInt(quantityInput.value);
+            if (isNaN(currentVal)) currentVal = 1;
+
+            let newVal = currentVal + change;
+            if (newVal < 1) newVal = 1;
+            if (newVal > maxStock) newVal = maxStock;
+
+            quantityInput.value = newVal;
+            decreaseBtn.disabled = (newVal <= 1);
+        }
+
+        window.changeQuantity = changeQuantity;
+        decreaseBtn.disabled = parseInt(quantityInput.value) <= 1;
     });
 </script>

@@ -11,9 +11,7 @@ class OrderDetails extends Model
 
     protected $table = 'order_details';
 
-    protected $fillable = [
-        'order_id', 'product_id', 'quantity', 'price'
-    ];
+    protected $fillable = ['order_id', 'product_id', 'quantity', 'unit_price', 'subtotal'];
 
     // Setiap detail order milik satu produk
     public function product()

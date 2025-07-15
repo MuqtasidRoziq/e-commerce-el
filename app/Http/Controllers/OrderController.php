@@ -13,7 +13,7 @@ class OrderController extends Controller
         // Eager load relationships to reduce queries
         $orders = Order::with(
             [
-                'customer', 
+                'users', 
                 'items'=>function($query){
                     $query->orderByDesc('created_at');
                 },

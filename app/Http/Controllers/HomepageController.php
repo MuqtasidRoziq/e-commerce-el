@@ -136,13 +136,4 @@ class HomepageController extends Controller
             'cart' => $cart,
         ]);
     }
-
-    public function checkout()
-    {
-        // $cart = Cart::
-
-        return view('web.checkout', [
-            'title' => 'Checkout'
-        ]);
-    }
 }

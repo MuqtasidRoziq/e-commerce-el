@@ -30,7 +30,7 @@ class ProductSeeder extends Seeder
                     'sku' => strtoupper($category->name) . '-' . $faker->unique()->numerify('#####'),
                     'stock' => $faker->numberBetween(1, 100),
                     'product_category_id' => $category->id,
-                    'price' => $faker->randomFloat(2, 10, 1000),
+                    'price' => $faker->randomFloat(2, 3000000, 10000000),
                     'is_active' => $faker->boolean(80), // 80% chance of being active
                     'image_url' => 'https://placehold.co/300x300?text=' . urlencode($category->name . ' ' . $i),
                     'created_at' => now(),

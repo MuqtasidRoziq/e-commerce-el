@@ -6,10 +6,8 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductCategoryController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CustomerAuthController;
-use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\CartController;
-
+use App\Http\Controllers\ChekoutController;
 use App\Http\Controllers\OrderController;
 
 use App\Http\Controllers\ApiController;
@@ -20,12 +18,13 @@ Route::get('products', [HomepageController::class, 'products']);
 Route::get('product/{slug}', [HomepageController::class, 'product'])->name('product.show');
 Route::get('categories', [HomepageController::class, 'categories']);
 Route::get('category/{slug}', [HomepageController::class, 'category']);
-Route::view('/pesanan', 'web.pesanan');
 
 
 Route::middleware(['auth', 'isUsers'])->group(function() {
     Route::get('cart', [HomepageController::class, 'cart'])->name('cart.index');
-    Route::get('checkout', [HomepageController::class, 'checkout'])->name('checkout.index');
+    Route::get('checkout', [ChekoutController::class, 'checkout'])->name('checkout.index');
+    Route::post('checkout/add', [ChekoutController::class, 'store'])->name('checkout.store');
+    Route::get('my-orders', [OrderController::class, 'index'])->name('orders.index');
     Route::controller(CartController::class)->group(function () {
         Route::post('cart/add', 'add')->name('cart.add');
         Route::delete('cart/remove/{id}', 'remove')->name('cart.remove');

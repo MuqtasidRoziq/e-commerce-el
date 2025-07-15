@@ -5,7 +5,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>{{ $title ?? ''}}</title>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
       {{ $style ?? '' }}
@@ -93,7 +94,7 @@
                   font-size: 0.85rem;
             }
 
-  .btn-sm {
+            .btn-sm {
                   font-size: 0.8rem;
                   padding: 0.25rem 0.5rem;
             }
@@ -104,8 +105,8 @@
                   padding: 0.25rem;
             }
 
-            
-                  .total-section {
+
+            .total-section {
                   font-size: 1rem;
             }
 
@@ -139,14 +140,18 @@
             {{ $slot }}
       </div>
 
-      <footer class="bg-dark text-white pt-4 mt-5" style="background: linear-gradient(to right,rgb(91, 102, 227),rgb(1, 6, 75));" class="text-white pt-5 pb-3">
+      <footer class="bg-dark text-white pt-4 mt-5"
+            style="background: linear-gradient(to right,rgb(91, 102, 227),rgb(1, 6, 75));" class="text-white pt-5 pb-3">
             <div class="container p-3">
                   <div class="row">
                         <div class="col-md-8 mb-3">
                               <h5 class="mb-3">E-Commerce</h5>
-                              <p>Belanja mudah, cepat, dan aman di toko online kami. Temukan produk favorit Anda dengan harga terbaik.
-                                    <br> Kami menyediakan berbagai kategori produk mulai dari elektronik, fashion, hingga kebutuhan sehari-hari.
-                                    <br> Dengan layanan pelanggan yang responsif dan pengiriman cepat, pengalaman belanja Anda
+                              <p>Belanja mudah, cepat, dan aman di toko online kami. Temukan produk favorit Anda dengan
+                                    harga terbaik.
+                                    <br> Kami menyediakan berbagai kategori produk mulai dari elektronik, fashion,
+                                    hingga kebutuhan sehari-hari.
+                                    <br> Dengan layanan pelanggan yang responsif dan pengiriman cepat, pengalaman
+                                    belanja Anda
                               </p>
                         </div>
                         <div class="col-md-2 mb-3">
@@ -173,10 +178,13 @@
                   <div class="text-center pb-3">
                         <p class="mb-0">Ikuti kami di:</p>
                         <div class="d-flex justify-content-center gap-4">
-                              <a href="https://www.facebook.com" class="text-white"><i class="fab fa-facebook-f"></i></a>
+                              <a href="https://www.facebook.com" class="text-white"><i
+                                          class="fab fa-facebook-f"></i></a>
                               <a href="https://www.twitter.com" class="text-white"><i class="fab fa-twitter"></i></a>
-                              <a href="https://www.instagram.com" class="text-white"><i class="fab fa-instagram"></i></a>
-                              <a href="https://www.linkedin.com" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                              <a href="https://www.instagram.com" class="text-white"><i
+                                          class="fab fa-instagram"></i></a>
+                              <a href="https://www.linkedin.com" class="text-white"><i
+                                          class="fab fa-linkedin-in"></i></a>
                               <a href="https://www.youtube.com" class="text-white"><i class="fab fa-youtube"></i></a>
                         </div>
                         <small>© {{ date('Y') }} E-Commerce. All rights reserved.</small>
@@ -185,7 +193,9 @@
       </footer>
 
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
 </body>
 
 </html>

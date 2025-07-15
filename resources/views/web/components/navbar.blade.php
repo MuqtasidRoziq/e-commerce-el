@@ -3,9 +3,12 @@
 
         <div class="container-fluid d-flex justify-content-between align-items-center">
 
-            <a href="isi"><img src="{{ asset('img/logo.png') }}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top"> </a>
+            <a href="isi"><img src="{{ asset('img/logo.png') }}" alt="Logo" width="30" height="24"
+                    class="d-inline-block align-text-top"> </a>
             <a class="navbar-brand text-white" href="/">E-Commerce</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -25,30 +28,36 @@
                     <!-- search -->
                     <li class="nav-item">
                         <form class="d-flex" action="{{ url('/search') }}" method="GET">
-                            <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+                            <input class="form-control me-2" type="search" name="query" placeholder="Search"
+                                aria-label="Search">
                             <button class="btn btn-outline-light" type="submit">Search</button>
                         </form>
                     </li>
                     <!-- user authentication -->
                     @if(auth()->guard('web')->check())
-                    <div class="dropdown">
-                        <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ Auth::guard('web')->user()->name }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                            <li>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button class="dropdown-item" type="submit">Logout</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+                        <div class="dropdown">
+                            <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" id="userDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ Auth::guard('web')->user()->name }}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{{ url('/my-orders') }}">Pesanan Saya</a>
+                                </li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button class="dropdown-item" type="submit">Logout</button>
+                                    </form>
+                                </li>
+
+                            </ul>
+                        </div>
                     @else
-                    <!--login  -->
-                    <li class="nav-item">
-                        <a class="btn btn-outline-light" href="{{ route('login') }}">Login</a>
-                    </li>
+                        <!--login  -->
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light" href="{{ route('login') }}">Login</a>
+                        </li>
                     @endif
 
                     <li class="nav-item">

@@ -11,7 +11,8 @@ class CartController extends Controller
 {
     private $cart;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->cart = Cart::query()->firstOrCreate(
             [
                 'user_id' => auth()->guard('web')->user()->id
@@ -25,6 +26,7 @@ class CartController extends Controller
         $validator = \Validator::make($request->all(), [
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
+            'storage' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -36,7 +38,7 @@ class CartController extends Controller
 
         // Find the product
         $product = Product::findOrFail($request->product_id);
-        
+
         // Check if the product is available
         if ($product->stock < $request->quantity) {
             return redirect()->back()->with('error', 'Stok tidak mencukupi untuk produk ini.');
@@ -46,6 +48,7 @@ class CartController extends Controller
             'itemable_id' => $product->id,
             'itemable_type' => $product::class,
             'quantity' => $request->quantity,
+            'storage' => $request->storage,
         ]);
 
         $this->cart->items()->save($cartItem);
@@ -68,13 +71,12 @@ class CartController extends Controller
 
         $product = Product::findOrFail($id);
 
-        if($request->action == 'decrease')
-        {
+        if ($request->action == 'decrease') {
             $this->cart->decreaseQuantity(item: $product);
-        }else if($request->action == 'increase'){
+        } else if ($request->action == 'increase') {
             $this->cart->increaseQuantity(item: $product);
         }
-        
+
         return redirect()->route('cart.index')->with('success', 'Cart updated successfully.');
     }
 }
