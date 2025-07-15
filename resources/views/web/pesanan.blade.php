@@ -78,7 +78,7 @@
                         <span class="badge bg-success px-3 py-2 fs-6"> Diterima</span>
                         @elseif($order->status === 'processing')
                         <span class="badge bg-info text-body px-3 py-2 fs-6" > Dikirim</span>
-                        @else
+                        @else 
                         <span class="badge bg-warning text-body px-3 py-2 fs-6"> Diproses</span>
                         @endif
                     </div>

@@ -95,17 +95,19 @@ class ChekoutController extends Controller
             ->orderBy('order_date', 'desc')
             ->get();
 
-        // foreach ($orders as $order) {
-        //     echo "Order ID: {$order->id}<br>";
-        //     foreach ($order->orderDetails as $detail) {
-        //         echo "→ Product: " . optional($detail->product)->name . "<br>";
-        //     }
-        // }
+        foreach ($orders as $order) {
+            echo "Order ID: {$order->id}<br>";
+            foreach ($order->orderDetails as $detail) {
+                echo "→ Product: " . optional($detail->product)->name . "<br>";
+                echo "→ Product: " . optional($detail->product)->category->name . "<br>";
+                echo "→ status: " . $order->status. "<br>";
+            }
+        }
 
-        return view('web.pesanan', [
-            'orders' => $orders,
-        ]);
+        // return view('web.pesanan', [
+        //     'orders' => $orders,
+        // ]);
 
-        // dd($orders);
+        dd($orders);
     }
 }
