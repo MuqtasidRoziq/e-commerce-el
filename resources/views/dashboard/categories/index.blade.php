@@ -103,7 +103,7 @@
                                 {{ $category->created_at }}
                             </p>
                         </td>
-                        <td>
+                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm text-gray-900"">
                             <form id="sync-category-{{ $category->id }}"
                                 action="{{ route('category.sync', $category->id) }}" method="POST">
                                 @csrf
@@ -143,7 +143,7 @@
         </table>
     </div>
     <div class="mt-3">
-        {{ $products->links() }}
+        {{ $categories->links() }}
     </div>
 
 </x-layouts.app>

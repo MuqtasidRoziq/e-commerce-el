@@ -9,69 +9,31 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     public function index()
-    
     {
-        // Eager load relationships to reduce queries
-        $orders = Order::with(
-            [
-                'users', 
-                'items'=>function($query){
-                    $query->orderByDesc('created_at');
-                },
-                'items.product'
-            ]
-        )->withCount(['items'])
-        ->get();
+        $title = 'Daftar Pesanan';
+        $orders = Order::with(['orderDetails.product', 'user'])
+            ->orderBy('order_date', 'desc')
+            ->get();
+        return view('dashboard.orders.index', compact('title', 'orders'));
+    }
 
-        $orderData = [];
-        foreach($orders as $key=>$order)
-        {
-            $customer = $order->customer;
-            $items = $order->items;
-            $totalAmount = 0;
-            $itemsCount = count($order->items);   
-            $completedOrderExists = [];
+    public function update(Request $request, $id)
+    {
+        // Validasi data
+        $validated = $request->validate([
+            'status' => 'required|string',
+            'resi' => 'nullable|string|max:255',
+        ]);
 
-            foreach($items as $keyItem=>$item)
-            {
-                $product = $item->product;
-                $totalAmount += $item->price * $item->quantity;
+        // Ambil order-nya
+        $order = Order::findOrFail($id);
 
-                if($keyItem === 0) {
-                    // Get the last added to cart time for the first item
-                    $lastAddedToCart = $item->created_at;
-                }
-            }
+        // Update status dan resi
+        $order->status = $validated['status'];
+        $order->resi = $validated['resi'];
+        $order->save();
 
-            // Check if the order is completed
-            if($order->status === 'completed') {
-                $completedOrderExists = true;
-            }
-            else {
-                $completedOrderExists = false;
-            }
-
-            $orderData[] = [
-                'order_id' => $order->id,
-                'customer_name' => $customer->name,
-                'total_amount' => $totalAmount,
-                'items_count' => $itemsCount,
-                'last_added_to_cart' => $lastAddedToCart,
-                'completed_order_exists' => $completedOrderExists,
-                'created_at' => $order->created_at,
-                'completed_at'=> $completedOrderExists ? $order->completed_at : null,
-            ];
-        }
-
-        
-        // Sort by completed_at descending, nulls last
-        usort($orderData, function($a, $b) {
-            $aCompletedAt = $a['completed_at'] ? strtotime($a['completed_at']) : 0;
-            $bCompletedAt = $b['completed_at'] ? strtotime($b['completed_at']) : 0;
-            return strtotime($bCompletedAt) - strtotime($aCompletedAt);
-        });
-
-        return view('orders.index', ['orders' => $orderData]);
+        return redirect()->back()->with('successMessage', 'Pesanan berhasil diperbarui.');
     }
 }
 

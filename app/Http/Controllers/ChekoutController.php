@@ -103,10 +103,8 @@ class ChekoutController extends Controller
         //         echo "→ Product: " . $product->name . "<br>";
         //         echo "→ Category: " . optional($product->category)->name . "<br>";
         //         echo "→ Status: " . $order->status . "<br>";
+        //         echo "→ Status: " . $order->resi . "<br>";
                 
-        //         // Pastikan image tidak null sebelum memanggil Storage::url
-        //         $imageUrl = $product->image ? Storage::url($product->image) : 'No Image';
-        //         echo "→ Image: <img src='" . $imageUrl . "' width='100'><br>";
         //     }
         // }
 
