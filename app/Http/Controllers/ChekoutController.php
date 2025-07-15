@@ -95,19 +95,25 @@ class ChekoutController extends Controller
             ->orderBy('order_date', 'desc')
             ->get();
 
-        foreach ($orders as $order) {
-            echo "Order ID: {$order->id}<br>";
-            foreach ($order->orderDetails as $detail) {
-                echo "→ Product: " . optional($detail->product)->name . "<br>";
-                echo "→ Product: " . optional($detail->product)->category->name . "<br>";
-                echo "→ status: " . $order->status. "<br>";
-            }
-        }
+        // foreach ($orders as $order) {
+        //     echo "Order ID: {$order->id}<br>";
+        //     foreach ($order->orderDetails as $detail) {
+        //         $product = optional($detail->product);
+                
+        //         echo "→ Product: " . $product->name . "<br>";
+        //         echo "→ Category: " . optional($product->category)->name . "<br>";
+        //         echo "→ Status: " . $order->status . "<br>";
+                
+        //         // Pastikan image tidak null sebelum memanggil Storage::url
+        //         $imageUrl = $product->image ? Storage::url($product->image) : 'No Image';
+        //         echo "→ Image: <img src='" . $imageUrl . "' width='100'><br>";
+        //     }
+        // }
 
-        // return view('web.pesanan', [
-        //     'orders' => $orders,
-        // ]);
+        return view('web.pesanan', [
+            'orders' => $orders,
+        ]);
 
-        dd($orders);
+        // dd($orders);
     }
 }
