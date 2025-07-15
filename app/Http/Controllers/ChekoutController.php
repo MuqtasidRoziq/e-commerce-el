@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Binafy\LaravelCart\Models\Cart;
 use Binafy\LaravelCart\Models\CartItem;
 use App\Models\Order;
@@ -65,6 +66,7 @@ class ChekoutController extends Controller
                     'order_id' => $order->id,
                     'product_id' => $product->id,
                     'quantity' => $item->quantity,
+                    'storage' => $item->storage,
                     'unit_price' => $product->price,
                     'subtotal' => $product->price * $item->quantity,
                 ]);
@@ -75,13 +77,35 @@ class ChekoutController extends Controller
             $cart->delete();
 
             DB::commit();
-            // return redirect()->route('orders.index')->with('success', 'Pesanan berhasil dibuat!');
-            dd('success', 'Pesanan berhasil dibuat!'); // For debugging, replace with redirect in production
+            return redirect()->route('my-orders')->with('success', 'Pesanan berhasil dibuat!');
+            // dd('succes');
         } catch (\Exception $e) {
             DB::rollBack();
-            // return back()->with('error', 'Terjadi kesalahan saat memproses pesanan: ' . $e->getMessage());
-            dd('error', 'Terjadi kesalahan saat memproses pesanan: ' . $e->getMessage()); // For debugging, replace with redirect in production
+            return back()->with('error', 'Terjadi kesalahan saat memproses pesanan: ' . $e->getMessage());
+            // dd('eror');
         }
     }
 
+    public function orders()
+    {
+        $user = Auth::user();
+
+        $orders = Order::with(['orderDetails.product'])
+            ->where('user_id', $user->id)
+            ->orderBy('order_date', 'desc')
+            ->get();
+
+        // foreach ($orders as $order) {
+        //     echo "Order ID: {$order->id}<br>";
+        //     foreach ($order->orderDetails as $detail) {
+        //         echo "→ Product: " . optional($detail->product)->name . "<br>";
+        //     }
+        // }
+
+        return view('web.pesanan', [
+            'orders' => $orders,
+        ]);
+
+        // dd($orders);
+    }
 }

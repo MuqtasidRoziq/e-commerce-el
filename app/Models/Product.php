@@ -10,6 +10,8 @@ class Product extends Model implements Cartable
 {
     use HasFactory;
 
+    protected $table = 'products';
+    
     protected $fillable = [
         'name',
         'slug',

@@ -24,7 +24,7 @@ Route::middleware(['auth', 'isUsers'])->group(function() {
     Route::get('cart', [HomepageController::class, 'cart'])->name('cart.index');
     Route::get('checkout', [ChekoutController::class, 'checkout'])->name('checkout.index');
     Route::post('checkout/add', [ChekoutController::class, 'store'])->name('checkout.store');
-    Route::get('my-orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('my-orders', [ChekoutController::class, 'orders'])->name('my-orders');
     Route::controller(CartController::class)->group(function () {
         Route::post('cart/add', 'add')->name('cart.add');
         Route::delete('cart/remove/{id}', 'remove')->name('cart.remove');
@@ -36,7 +36,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('kategori', ProductCategoryController::class);
     Route::resource('produk', ProductController::class);
-Route::resource('orders', OrderController::class);
+    Route::resource('orders', OrderController::class);
     
     Route::post('products/sync/{id}', [ProductController::class, 'sync'])->name('products.sync');
     Route::post('category/sync/{id}', [ProductCategoryController::class, 'sync'])->name('category.sync');

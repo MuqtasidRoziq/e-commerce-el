@@ -23,7 +23,7 @@
                     <div class="card h-100 text-center hover-shadow">
 
                         {{-- Gambar Produk --}}
-                        <img src="{{ $product->image }}" class="card-img-top" style="height:220px;object-fit:cover;" alt="{{ $product['name'] }}">
+                        <img src="{{ Storage::url($product->image) }}" class="card-img-top" style="height:220px;object-fit:cover;" alt="{{ $product['name'] }}">
                         <h6 class="card-title">{{ $product->name }}</h6>
                         <div class="card-body position-relative">
                             <div class="card-info">

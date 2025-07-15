@@ -10,7 +10,7 @@
                 @php $first = false; @endphp
                 <div class="d-flex justify-content-center">
                     <div class="card bg-dark text-white shadow promo-card" style="width: 18rem; height: 30rem;">
-                        <img src="{{ $product->image}}" class="card-img-top" style="height: 330px; object-fit: cover;" alt="{{ $product->name }}">
+                        <img src="{{ Storage::url($product->image_url)}}" class="card-img-top" style="height: 330px; object-fit: cover;" alt="{{ $product->name }}">
                         <div class="card-body">
                            
                             <span class="badge bg-primary mb-2">{{ $product->category->name }}</span>
@@ -93,7 +93,7 @@
                     {{-- Card Produk --}}
                     <div class="card-body h-100 text-center hover-shadow" style="background-color: #f8f9fa;">
                         {{-- Gambar Produk --}}
-                        <img src="{{ $product->image }}" class="card-img-top"
+                        <img src="{{ Storage::url($product->image_url) }}" class="card-img-top"
                             style="height:220px; object-fit:cover;" alt="{{ $product['name'] }}">
                         <h6 class="card-title">{{ $product->name }}</h6>
                         <div class="card-body position-relative" >

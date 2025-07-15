@@ -64,7 +64,7 @@
                             @foreach ($cart->items as $item)
                                 <li class="list-group-item d-flex justify-content-between lh-sm">
                                     <div>
-                                        <h6 class="my-0">{{ $item->itemable->name }}</h6>
+                                        <h6 class="my-0">{{ $item->itemable->name }} </h6>
                                     </div>
                                     <span
                                         class="text-muted">Rp.{{ number_format($item->itemable->price, 0, ',', '.') }}</span>
@@ -90,6 +90,8 @@
                             value="{{ $item->itemable->price }}">
                         <input type="hidden" name="products[{{ $item->itemable->id }}][quantity]"
                             value="{{ $item->quantity }}">
+                        <input type="hidden" name="products[{{ $item->itemable->id}}][storage]" 
+                            value="{{ $item->storage }}">
                         <button class="btn btn-outline-primary w-100 mt-3" type="submit">Pesan Sekarang</button>
                         <a href="/cart" class="btn btn-outline-primary w-100 mt-2">Kembali ke Keranjang</a>
                     </form>

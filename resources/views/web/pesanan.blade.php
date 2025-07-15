@@ -1,56 +1,3 @@
-<!-- data dummy orders -->
-@php
-$orders = [
-(object)[
-'id' => 1,
-'product' => (object)[
-'store' => 'RxiiStore',
-'name' => 'Produk A',
-'kategori' => 'Samsung',
-'image' => 'https://via.placeholder.com/150'
-],
-'quantity' => 2,
-'warna' => 'Silber',
-'storage' => '128GB',
-'total_price' => 50000,
-'status' => 'Selesai',
-'resi' => '250522N2XKMPM9'
-],
-
-(object)[
-'id' => 2,
-'product' => (object)[
-'store' => 'RxiiStore',
-'name' => 'Produk B',
-'kategori' => 'Apple',
-'image' => 'https://via.placeholder.com/150'
-],
-'quantity' => 1,
-'warna' => 'Grey',
-'storage' => '256GB',
-'total_price' => 30000,
-'status' => 'Dikirim',
-'resi' => '250501N2XKMPM9'
-],
-
-(object)[
-'id' => 3,
-'product' => (object)[
-'store' => 'RxiiStore',
-'name' => 'Produk C',
-'kategori' => 'Realme',
-'image' => 'https://via.placeholder.com/150'
-],
-'quantity' => 1,
-'warna' => 'Hitam',
-'storage' => '128GB',
-'total_price' => 30000,
-'status' => 'Diproses',
-'resi' => '250512N2XKMPM9'
-]
-];
-@endphp
-
 <x-layout>
     <x-slot name="title"> Pesanan Saya</x-slot>
     <!-- Modal Form Penilaian -->
@@ -107,29 +54,30 @@ $orders = [
             <div class="card-header bg-light py-3">
                 <div class="d-flex flex-wrap justify-content-between align-items-start gap-2">
 
-
+                    @isset($order->orderDetails)
                     <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-2 flex-grow-1">
                         <strong class="text-dark">
-                            Mall | <span class="text-warning">{{ $order->product->store ?? 'Nama Toko' }}</span> |
-                            <span class="text-primary">{{ $order->product->kategori ?? '-' }}</span>
+                            Mall | <span class="text-warning">Msthu</span> |
+                            <span class="text-primary">{{ $order->product->categories ?? '-' }}</span>
                         </strong>
 
                         {{-- Tombol Produk Lainnya --}}
                         <a href="#" class="btn btn-sm btn-outline-secondary mt-2 mt-md-0">Produk Lainnya</a>
                     </div>
+                    @endisset
 
 
                     <div class="d-flex flex-wrap align-items-center gap-3">
-                        @if($order->status === 'Selesai' || $order->status === 'Dikirim')
+                        @if($order->status === 'completed' || $order->status === 'processing')
                         <div class="text-muted small">
                             <strong>Resi:</strong> {{ $order->resi ?? 'Belum tersedia' }}
                         </div>
                         @endif
 
-                        @if($order->status === 'Selesai')
+                        @if($order->status === 'completed')
                         <span class="badge bg-success px-3 py-2 fs-6"> Diterima</span>
-                        @elseif($order->status === 'Dikirim')
-                        <span class="badge bg-info text-body px-3 py-2 fs-6"> Dikirim</span>
+                        @elseif($order->status === 'processing')
+                        <span class="badge bg-info text-body px-3 py-2 fs-6" > Dikirim</span>
                         @else
                         <span class="badge bg-warning text-body px-3 py-2 fs-6"> Diproses</span>
                         @endif
@@ -139,13 +87,11 @@ $orders = [
 
             {{-- Produk --}}
             <div class="card-body d-flex flex-column flex-md-row align-items-md-start py-4">
-                <img src="{{ $order->product->image }}" alt="..." class="img-thumbnail me-md-3 mb-3 mb-md-0" style="width: 120px;">
+                <img src="{{ optional($order->product)->image_url }}" alt="..." class="img-thumbnail me-md-3 mb-3 mb-md-0" style="width: 120px;">
                 <div>
-                    <h6>{{ $order->product->name }}</h6>
-                    <p class="mb-1">Warna: {{ $order->warna ?? '' }} </p>
+                    <h6>{{ optional($order->product)->name }}</h6>
                     <p class="mb-1">Penyimpanan: {{ $order->storage ?? '' }}</p>
                     <p class="mb-1">x{{ $order->quantity }}</p>
-                    <div class="text-muted text-decoration-line-through">Rp85.000</div>
                     <div class="fw-bold text-danger">Rp{{ number_format($order->total_price, 0, ',', '.') }}</div>
                 </div>
             </div>
