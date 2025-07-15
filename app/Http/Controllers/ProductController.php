@@ -80,7 +80,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('products.index')->with(
+        return redirect()->route('produk.index')->with(
             [
                 'success' => 'Produk berhasil ditambahkan.'
             ]
@@ -150,7 +150,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect()->route('products.index')
+        return redirect()->route('produk.index')
             ->with(
                 [
                     'successMessage' => 'Data Berhasil Diupdate'
@@ -167,7 +167,7 @@ class ProductController extends Controller
 
         $product->delete();
 
-        return redirect()->route('products.index')
+        return redirect()->route('produk.index')
             ->with('successMessage', 'Data Berhasil Dihapus');
     }
 
