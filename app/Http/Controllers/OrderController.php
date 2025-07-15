@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class OrderController extends Controller
 {
     public function index()
+    
     {
         // Eager load relationships to reduce queries
         $orders = Order::with(
