@@ -166,7 +166,7 @@
                                                             <option class="text-gray-950" value="completed">Selesai</option>
                                                         </select>
                                                     </div>
-                                                    <template x-if="status === 'processing'">
+                                                    <template x-if="status === 'processing'|| status === 'completed'">
                                                         <div>
                                                             <flux:input label="Nomor Resi" placeholder="Masukkan Nomor Resi"
                                                                 x-model="resi" />
@@ -202,5 +202,4 @@
             </tbody>
         </table>
     </div>
-
 </x-layouts.app>
