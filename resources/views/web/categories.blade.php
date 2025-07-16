@@ -67,5 +67,4 @@
         <hr class="my-4 border-dark">
         @endforeach
     </div>
-
 </x-layout>

@@ -95,7 +95,7 @@ class HomepageController extends Controller
                 $query->join('orders', 'orders.id', '=', 'order_details.order_id')
                     ->where('orders.status', 'completed'); // hanya hitung yang sudah selesai
             }
-        ], 'quantity')->paginate(5);
+        ], 'quantity')->limit(5)->get();
 
         return view('web.categories', [
             'title' => 'Categories',

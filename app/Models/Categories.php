@@ -10,4 +10,5 @@ class Categories extends Model
     use HasFactory;
 
     protected $table = 'product_categories';
+
 }
