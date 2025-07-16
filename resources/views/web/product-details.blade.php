@@ -40,13 +40,13 @@
                     @endif
                 </div>
                 <div class="mb-4">
-                    <p class="text-muted">{{ $product->description }}</p>
+                    <!-- <p class="text-muted">{{ $product->description }}</p> -->
                 </div>
 
                 <form action="{{ route('cart.add') }}" method="POST" class="mb-4"  id="addToCartForm">
                     @csrf
                     <div class="mb-4">
-                        <span>Stok:</span>
+                        <span><strong>Stok:</strong></span>
                         <span class="{{ $product->stock > 0 ? 'text-muted' : 'text-danger' }}">
                             {{ $product->stock > 0 ? $product->stock : 'Habis' }}
                         </span>
@@ -93,7 +93,7 @@
 
         <div class="row mb-5 p-3 p-md-5">
             <div class="col-12 col-md-4 text-center">
-                <img src="https://th.bing.com/th/id/OIP.6rEmHDf3ORQc44w62pVjNwHaHa?w=158&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
+                <img src="{{ Storage::url($product->image_url) }}"
                     class="img-fluid rounded mb-3" alt="iPhone 13" style="max-width: 200px;">
             </div>
 
@@ -128,7 +128,7 @@
                 <div class="col">
 
                     <div class="card h-100 text-center hover-shadow related-card">
-                        <img src="{{ $relatedProduct->image_url ?? 'https://via.placeholder.com/350x200?text=No+Image' }}"
+                        <img src="{{ $relatedProduct->image_url ?? Storage::url($product->image_url)  }}"
                             class="card-img-top" alt="{{ $relatedProduct->name }}">
                         <h5 class="card-title mt-3">{{ $relatedProduct->name }}</h5>
                         <div class="card-body position-relative">

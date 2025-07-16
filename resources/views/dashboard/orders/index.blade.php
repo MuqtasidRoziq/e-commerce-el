@@ -110,10 +110,10 @@
 
                             @if($loopIndex === 0)
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    @if($order->status === 'Selesai')
+                                    @if($order->status === 'completed')
                                         <span
                                             class="inline-block px-3 py-1 text-sm font-semibold text-green-700 bg-green-100 rounded-full">Selesai</span>
-                                    @elseif($order->status === 'Dikirim')
+                                    @elseif($order->status === 'processing')
                                         <span
                                             class="inline-block px-3 py-1 text-sm font-semibold text-blue-700 bg-blue-100 rounded-full">Dikirim</span>
                                     @else
@@ -122,7 +122,7 @@
                                     @endif
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    @if($order->status === 'Selesai' || $order->status === 'Dikirim')
+                                    @if($order->status === 'completed' || $order->status === 'processing')
                                         <p class="text-gray-900">{{ $order->resi }}</p>
                                     @else
                                         <p class="text-gray-900">N/A</p>
@@ -161,12 +161,12 @@
                                                             class="block text-sm font-medium text-gray-700 mb-1">Status</label>
                                                         <select id="status" x-model="status"
                                                             class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring focus:ring-blue-200">
-                                                            <option class="text-gray-950" value="Diproses">Diproses</option>
-                                                            <option class="text-gray-950" value="Dikirim">Dikirim</option>
-                                                            <option class="text-gray-950" value="Selesai">Selesai</option>
+                                                            <option class="text-gray-950" value="pending">Diproses</option>
+                                                            <option class="text-gray-950" value="processing">Dikirim</option>
+                                                            <option class="text-gray-950" value="completed">Selesai</option>
                                                         </select>
                                                     </div>
-                                                    <template x-if="status === 'Dikirim'">
+                                                    <template x-if="status === 'processing'">
                                                         <div>
                                                             <flux:input label="Nomor Resi" placeholder="Masukkan Nomor Resi"
                                                                 x-model="resi" />
