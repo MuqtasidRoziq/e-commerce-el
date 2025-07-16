@@ -133,5 +133,4 @@
             <a href="/products" class="btn btn-outline-primary ">Lihat Semua Produk</a>
         </div>
     </div>
-]
 </x-layout>

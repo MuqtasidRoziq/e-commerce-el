@@ -73,9 +73,10 @@
                         <button type="button" class="btn btn-outline-secondary btn-sm" onclick="changeQuantity(1)">+</button>
                 
                         {{-- Tombol keranjang dengan lebar sesuai teks --}}
-                        <button class="btn btn-primary" type="submit" name="action" value="add" style="white-space: nowrap;">
+                        <button class="btn btn-primary h-100" type="submit" name="action" value="add" style="white-space: nowrap;">
                             <i class="bi bi-cart-plus me-1"><img src="{{ asset('static/cart.png') }}" alt="image cart"
-                                    style="width: 30px;"></i>
+                                    style="width: 30px; filter:brightness(0) invert(1);"
+                                    "></i>
                         </button>
                     </div>
                 </form>
